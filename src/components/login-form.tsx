@@ -13,6 +13,7 @@ import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 import { login } from "requests";
 import { useAppDispatch } from "store/hooks";
 import { setToken } from "features/auth/auth-slice";
+import { AxiosError } from "axios";
 
 function LoginForm() {
   const toast = useToast();
@@ -23,21 +24,27 @@ function LoginForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login({ email, password })
-      .then((data) => {
-        window.localStorage.setItem("__auth_token__", data);
-        dispatch(setToken(data));
-      })
-      .catch((error) => {
-        if (!toast.isActive(id)) {
-          toast({
-            id,
-            position: "top",
-            title: error.response.data || error.message,
-            status: "error",
-          });
-        }
+    login({ email, password }).then(handleResponse).catch(handleError);
+  };
+
+  const handleResponse = (data: string) => {
+    dispatch(setToken(data));
+  };
+
+  const handleError = (error: AxiosError) => {
+    const msg = error.response?.data || error.message;
+    showToastMessage(msg);
+  };
+
+  const showToastMessage = (message: string) => {
+    if (!toast.isActive(id)) {
+      toast({
+        id,
+        position: "top",
+        title: message,
+        status: "error",
       });
+    }
   };
 
   return (

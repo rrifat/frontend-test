@@ -6,5 +6,8 @@ export function login(body: {
 }): Promise<string> {
   return axios
     .post(process.env.REACT_APP_API_URL + `/login`, body)
-    .then((res) => res.data);
+    .then((res) => {
+      window.localStorage.setItem("__auth_token__", res.data);
+      return res.data;
+    });
 }

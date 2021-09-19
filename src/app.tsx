@@ -1,8 +1,10 @@
 import React from "react";
-import Login from "components/login";
+import Login from "features/auth";
+import { useAppSelector } from "store/hooks";
 
 function App() {
-  return <Login />;
+  const { token } = useAppSelector((state) => state.auth);
+  return !token ? <Login /> : <h2>DEVICE LIST---{token}</h2>;
 }
 
 export default App;

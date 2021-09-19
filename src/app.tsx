@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
+import Login from "components/login";
 
 function App() {
-  return (
-    <div>Front End Test</div>
-  );
+  return <Login />;
 }
 
 export default App;

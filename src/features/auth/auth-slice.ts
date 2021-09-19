@@ -12,7 +12,7 @@ const authReducer = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setToken(state, action: PayloadAction<string>) {
+    setToken(state, action: PayloadAction<string | null>) {
       // it's ok to do because immer makes it
       // immutable under the hood
       state.token = action.payload;

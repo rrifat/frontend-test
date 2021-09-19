@@ -1,7 +1,7 @@
 import { Box, Container, Flex, Heading } from "@chakra-ui/react";
 import LoginForm from "components/login-form";
 
-function Login() {
+function Auth() {
   return (
     <Container>
       <Flex
@@ -22,4 +22,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Auth;

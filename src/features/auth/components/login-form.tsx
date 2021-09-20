@@ -33,20 +33,25 @@ function LoginForm() {
   const handleResponse = (data: string) => {
     dispatch(setToken(data));
     setStatus("resolved");
+    showToastMessage("Login successfully", "success");
   };
 
   const handleError = (error: AxiosError) => {
     const msg = error.response?.data || error.message;
-    showToastMessage(msg);
+    setStatus("rejected");
+    showToastMessage(msg, "error");
   };
 
-  const showToastMessage = (message: string) => {
+  const showToastMessage = (
+    message: string,
+    status: "info" | "warning" | "success" | "error"
+  ) => {
     if (!toast.isActive(id)) {
       toast({
         id,
         position: "top",
         title: message,
-        status: "error",
+        status,
       });
     }
   };

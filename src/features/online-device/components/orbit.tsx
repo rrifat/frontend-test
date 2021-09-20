@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { getDevices } from "requests";
+import { useMount } from "common/hooks";
 
 const ROTATOR_SIZE_IN_EM = 30;
 const ITEM_SIZE_IN_EM = 5;
@@ -21,7 +22,7 @@ const Rotator = styled.div`
   position: relative;
   width: ${ROTATOR_SIZE_IN_EM}em;
   height: ${ROTATOR_SIZE_IN_EM}em;
-  //animation: ${rotations} 6s linear infinite;
+  animation: ${rotations} 6s linear infinite;
   border-radius: 50%;
 `;
 
@@ -48,18 +49,17 @@ const Circle = styled.div<CircleProps>`
 
 function Orbit() {
   const [itemCount, setItemCount] = React.useState(0);
-  setItemCount;
-  getDevices;
   const angle = 360 / itemCount;
+  const hasMounted = useMount();
 
   React.useEffect(() => {
-    // const timer = setInterval(() => {
-    //   getDevices().then((data) => {
-    //     setItemCount(data.devices.length);
-    //   });
-    // }, 5000);
-    // return () => clearInterval(timer);
-  }, []);
+    const timer = setInterval(() => {
+      getDevices().then((data) => {
+        hasMounted && setItemCount(data.devices.length);
+      });
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [hasMounted]);
 
   return (
     <Box w="full" h="full" position="relative">

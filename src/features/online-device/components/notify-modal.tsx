@@ -61,6 +61,7 @@ function NotifyModal({
   };
 
   const handleError = (error: AxiosError) => {
+    setStatus("rejected");
     const msg = error.response?.data || error.message;
     showToastMessage(msg, "error");
   };

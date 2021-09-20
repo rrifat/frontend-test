@@ -77,7 +77,7 @@ function Orbit() {
         </Stack>
       </AbsoluteCenter>
       <AbsoluteCenter>
-        <Rotator>
+        <Rotator data-testid="rotator">
           {Array(itemCount)
             .fill(0)
             .map((_, idx) => (
@@ -86,6 +86,7 @@ function Orbit() {
                 rot={angle * idx}
                 circleSize={ROTATOR_SIZE_IN_EM}
                 itemSize={ITEM_SIZE_IN_EM}
+                data-testid="circle"
               />
             ))}
         </Rotator>
